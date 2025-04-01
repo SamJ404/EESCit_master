@@ -1,0 +1,52 @@
+train_dataset:
+  dataset:
+    name: hr_data_loader
+    args:
+      split_file: ./data/meta_info_ucm_trainhr.txt
+      cache: none
+  wrapper:
+    name: select_scale_sr_warp
+    args:
+      scales: [2, 2.5, 3, 3.5, 4]
+      patch_size: 48
+      augment: true
+      val_mode: false
+      test_mode: false
+  batch_size: 4
+  num_workers: 4
+
+eval_type: psnr+ssim
+
+data_norm:
+  img: {sub: [0.5], div: [0.5]}
+  gt: {sub: [0.5], div: [0.5]}
+
+model:
+  name: EESCit
+  args:
+    backbone_spec:
+      name: Swin_backbone
+      args:
+        in_channels: 3
+        embed_dims: 256
+        depth: 4
+        drop_path_rate: 0.1
+    head: 8
+    qembed_dim: [256, 128, 64, 32]
+    kembed_dim: [256, 128, 128, 256]
+    vembed_dim: [256, 128, 128, 256]
+
+optimizer:
+  name: adam
+  args:
+    lr: 2.e-4
+
+lr_scheduler:
+  name: CosineAnnealingWarmUpLR
+  epochs: 2000
+  warm_up_epochs: 50
+  eta_min: 1.e-8
+
+epoch_max: 2000
+epoch_val: 100
+epoch_save: 500

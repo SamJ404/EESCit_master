@@ -25,3 +25,29 @@ This is the offical pytorch implementation of EESCit. [[Pretrained models]](http
 ***
 <a id='section21'></a>
 ### Training 💪 ###  
+* Prepare environment:  
+```
+pip install -r requirement.txt
+```  
+* Prepare dataset information text file:
+To generate HR images information for train dataset (Remember to 'hash' the irrelevant parts according to the annotation):  
+```
+python generate_meta_info.py --dataset_dir [PATH/TO/DATASET1,PATH/TO/DATASET2] --save_dir PATH/TO/SAVE --txt_name META_INFO.txt
+```
+To generate HR-LR image pair information for validate dataset (Remember to 'hash' the irrelevant parts according to the annotation):  
+```
+python generate_meta_info.py --hrset_dir [PATH/TO/HRIMGS1,PATH/TO/HRIMGS2] --lrdet_dir [PATH/TO/LRIMGS1,PATH/TO/LRIMGS2] --save_dir PATH/TO/SAVE --txt_name META_INFO.txt
+```
+* Modify `./configs/train_x_EESCit_bestval.yaml` before start training. Take `train_swin_EECSit_bestval.yaml` for example, pay extra attention to parameters:
+```
+train_dataset['dataset']['args']['split_file']: directory to hr images meta info txt file
+train_dataset['wrapper']['args']['scales']: training scales (the scales used will become in-scale)
+train_dataset['batch_size']: training batch size
+val_dataset['dataset']['args']['meta_file']: directory to hr-lr image pairs meta info txt file
+val_dataset['wrapper']['args']['scale']: validate scale, consistent with hr-lr image pairs
+```
+
+
+
+
+

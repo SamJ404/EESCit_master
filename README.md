@@ -68,10 +68,10 @@ The `--scale_max` and scale of hr-lr in meta_info.txt need to be matched.
 ***
 * **Overview:** The proposed EESCit model is based on implicit transformer structure, utilizing implicit coordinate mapping function to realize continuous magnification. The overview of our algorithm is illustrated in Fig 1. The network follows a two-stage inference framework including feature extraction and arbitrary-scale reconstruction based on implicit transformer. The query branch implements dual-stage edge enhance module (EEM), where the primary enhancement operates on native-resolution feature maps from the backbone encoder, while the secondary refinement processes upsampled representations generated through implicit neural coordinate transformation. The key-value dual pathways share the same spatial-channel cascading enhance module (SCEM) operating on backbone-extracted feature, followed by branch-diverged processing where implicit coordinate transformations precede secondary SCEM operations in respective pathways.
 ![Overview Sturcture](https://github.com/SamJ404/EESCit_master/blob/main/illustration/EESCit.jpg)
-!*Figure 1*
+*Figure 1*
 * **EEM:** We proposed an Edge Enhance Module (EEM) implementing Echo Forward Extraction (EFE) operation with novel structure and Quad-directional Edge Focus (QEF) based on learnable Sobel convolution for better feature propagation and edge saliency preservation in low-SNR conditions. The construction of our EEM is depicted as Fig 2.
 ![Edeg Enhance Module](https://github.com/SamJ404/EESCit_master/blob/main/illustration/EEM.jpg)
-!*Figure 2*
+*Figure 2*
 <a id='section4'></a>
 ## Results ✨ ##  
 We conducted comparative experiments on UCMerced_LandUse dataset comparing our approach with other SOTA ASSR algorithms. We retrained all the models applying exactly the same training configuration for a fair evaluation.  
